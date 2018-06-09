@@ -109,7 +109,6 @@
         for(var i = 0; i < botton.length; i++){
             (function(i){
                 botton[i].onclick = function(){
-                    console.log(i);
                     var dis = index - i;
                     sowing.style.left = (parseInt(sowing.style.left) + dis * 1903) + 'px';
                     index = i;
