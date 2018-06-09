@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <title>baidu_ife_day7&day8</title>
+</head>
+<body>
+    <div class="header">
+        <div class="container clear-fix">
+            <div class="logo">
+                <a href="index.html">Logo</a>
+            </div>
+            <ul class="nav-list">
+                <li><a href="#">Github</a></li>
+                <li><a href="#">Register</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="banner">
+        <div class="sowing clear-fix" style="left:0;">
+            <img src="img/1.png" alt="轮播图">
+            <img src="img/2.png" alt="轮播图">
+            <img src="img/3.png" alt="轮播图">
+            <img src="img/4.png" alt="轮播图">
+        </div>
+        <div class="sowing-index">
+            <ul class="index-list clear-fix">
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-nav">
+        <div class="container">
+            <ul class="nav-list clear-fix">
+                <li class="choice"><a href="#">Home</a></li>
+                <li><a href="#">PROFILE</a></li>
+                <li><a href="#">ABOUT</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container">
+            <div class="item">This is Content 1</div>
+            <div class="item">MaybeContent 2</div>
+            <div class="item">Content 3</div>
+            <div class="item">Content 4</div>
+            <div class="item">Content 5</div>
+            <div class="item">Content 6</div>
+            <div class="item">Content 7</div>
+            <div class="item">Content 8</div>
+            <div class="item">Content 9</div>
+            <div class="item">Content 10</div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+            <p>©2018 <a href="http://ife.baidu.com/">ife.baidu.com</a></p>
+        </div>
+    </div>
+
+    <!--轮播图js逻辑代码-->
+    <script type="text/javascript">
+        var sowing = document.querySelector('.sowing'),
+            bottons = document.querySelector('.index-list'),
+            botton = bottons.getElementsByTagName('li'),
+            index = 0;
+        function nextImg(){
+            var newLeft;
+            if (sowing.style.left === '-5709px'){
+                newLeft = 0;
+            }else {
+                newLeft = parseInt(sowing.style.left) - 1903;
+            }
+            index++;
+            if(index === 4){
+                index = 0;
+            }
+            showCurrent();
+            sowing.style.left = newLeft + 'px';
+        }
+        var timer = null;
+        function autoPlay(){
+            timer = setInterval(function(){
+                nextImg();
+            }, 2000);
+        }
+        autoPlay();
+
+        var banner = document.querySelector('.banner');
+        banner.onmouseover = function(){
+            clearInterval(timer);
+        };
+        banner.onmouseout = function(){
+            autoPlay();
+        };
+
+        function showCurrent(){
+            for(var i = 0; i < botton.length; i++){
+                botton[i].className = '';
+            }
+            botton[index].className = 'active';
+        }
+
+        for(var i = 0; i < botton.length; i++){
+            (function(i){
+                botton[i].onclick = function(){
+                    console.log(i);
+                    var dis = index - i;
+                    sowing.style.left = (parseInt(sowing.style.left) + dis * 1903) + 'px';
+                    index = i;
+                    showCurrent();
+                }
+            })(i);
+        }
+    </script>
+</body>
+</html>
